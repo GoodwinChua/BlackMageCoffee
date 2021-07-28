@@ -1,0 +1,40 @@
+<!-- <p>coffee-bean works!</p> -->
+
+<form #frm = "ngForm" (ngSubmit) = "addCoffeeBean(frm)">
+    <h2 id="add-coffeebean"> Add Coffee Bean</h2>
+    <div class="form-group">
+        <label for=""> Name: </label>
+        <input type="text" class="form-control" name="itemName" value="" ngModel>
+    </div>
+    <div class="form-group">
+        <label for=""> Quantity: </label>
+        <input type="number" class="form-control" name="itemQuantity" value="" ngModel>
+    </div>
+    <button type="submit" name="button" class="btn btn-success"> Add Coffee Bean </button>
+</form>
+
+
+
+
+<h2 id="coffeebean-list"> Black Mage Coffee </h2>
+
+
+<div *ngFor="let item of coffeebeanList" class="">
+    <div id="checkbox">
+        <input type="checkbox" name="">
+    </div>
+    <div id="coffeebean-name">
+        {{item.itemName}}
+    </div>
+    <div id="coffeebean-quantity">
+        {{item.itemQuantity}}
+    </div>
+    <div id="edit-btn">
+        <button type="button" name="button" class="btn btn-primary"> Edit </button>
+    </div>
+    <div id="del-btn">
+        <button type="button" name="button" class="btn btn-danger"> Delete </button>
+    </div>
+    <br>
+    <br>
+</div>
