@@ -1,0 +1,9 @@
+mat-accordion {
+    display: block;
+    margin-top: 1rem;
+}
+
+.mat-expansion-panel-header-description {
+    display: flex;
+    justify-content: flex-start;
+  }

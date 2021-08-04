@@ -1,40 +1,118 @@
 <!-- <p>coffee-bean works!</p> -->
 
-<form #frm = "ngForm" (ngSubmit) = "addCoffeeBean(frm)">
-    <h2 id="add-coffeebean"> Add Coffee Bean</h2>
-    <div class="form-group">
-        <label for=""> Name: </label>
-        <input type="text" class="form-control" name="itemName" value="" ngModel>
-    </div>
-    <div class="form-group">
-        <label for=""> Quantity: </label>
-        <input type="number" class="form-control" name="itemQuantity" value="" ngModel>
-    </div>
-    <button type="submit" name="button" class="btn btn-success"> Add Coffee Bean </button>
-</form>
+<mat-card *ngIf="!toggleForm">
+    <mat-card-header>
+        <mat-card-title>Add Coffee Beans</mat-card-title>
+        <mat-card-subtitle>per box</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form #frm="ngForm" (ngSubmit)="addCoffeeBean(frm)">
+            <!-- <h2 id="add-coffeebean"> Add Coffee Bean</h2> -->
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="" for=""> Name: </mat-label>
+                <input matInput type="text" name="itemName" value="" ngModel required minlength="3">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="" for=""> Quantity: </mat-label>
+                <input matInput type="number" name="itemQuantity" value="" ngModel required>
+            </mat-form-field>
+            <button type="submit" name="button" [disabled]=frm.invalid mat-raised-button color="accent"> Add Coffee Bean
+            </button>
 
+        </form>
+    </mat-card-content>
+</mat-card>
 
+<mat-card *ngIf="toggleForm">
+    <form #editForm="ngForm" (ngSubmit)="editCoffeeBean(editForm)">
+        <h2 id="edit-coffeebean"> Edit Coffee Bean</h2>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label for=""> Name: </mat-label>
+            <input matInput type="text" name="itemName" value="" [ngModel]="selectedCoffeeBean.itemName">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label for=""> Quantity: </mat-label>
+            <input matInput type="number" name="itemQuantity" value="" [ngModel]="selectedCoffeeBean.itemQuantity">
+        </mat-form-field>
+        <button type="submit" name="button" mat-raised-button class="save"> Save </button>
+        <button type="button" name="button" mat-raised-button color="accent" (click)="showAddForm()"> Cancel </button>
+    </form>
+</mat-card>
 
+<!-- <h2 id="coffeebean-list"> Black Mage Coffee </h2> -->
 
-<h2 id="coffeebean-list"> Black Mage Coffee </h2>
+<!-- <div id="coffee-table">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Origin</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Bought?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of coffeebeanList">
+                <td>
+                    <div id="coffeebean-name">
+                        {{item.itemName}}
+                    </div>
+                </td>
+                <td>
+                    <div id="coffeebean-quantity">
+                        {{item.itemQuantity}}
+                    </div>
+                </td>
+                <td>
+                    <div id="checkbox">
+                        <input type="checkbox" [checked]="item.itemBought" (click)="updateItemBought(item)">
+                    </div>
+                </td>
+                <td>
+                    <div id="editdel-btn">
+                        <button type="button" id="modbtn" name="button" class="btn btn-primary"
+                            (click)="showEditForm(item)" [disabled]="toggleForm"> Edit </button>
+                        <button type="button" id="modbtn" name="button" class="btn btn-danger"
+                            (click)="deleteCoffeeBean(item._id)">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
 
+<!-- <div id="coffee-table">
+    <mat-table class = "mat-elevation-z8" [dataSource]="coffeebeanDataSource">
+        <ng-container matColumnDef="Origin">
+            <mat-header-cell *matHeaderCellDef>Origin</mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">{{coffeebean.itemName}}</mat-cell>
+        </ng-container>
 
-<div *ngFor="let item of coffeebeanList" class="">
-    <div id="checkbox">
-        <input type="checkbox" name="">
-    </div>
-    <div id="coffeebean-name">
-        {{item.itemName}}
-    </div>
-    <div id="coffeebean-quantity">
-        {{item.itemQuantity}}
-    </div>
-    <div id="edit-btn">
-        <button type="button" name="button" class="btn btn-primary"> Edit </button>
-    </div>
-    <div id="del-btn">
-        <button type="button" name="button" class="btn btn-danger"> Delete </button>
-    </div>
-    <br>
-    <br>
-</div>
+        <ng-container matColumnDef="Quantity">
+            <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">{{coffeebean.itemQuantity}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Bought">
+            <mat-header-cell *matHeaderCellDef>Bought</mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">
+                <mat-checkbox [checked]="coffeebean.itemBought" (click)="updateItemBought(coffeebean)"> </mat-checkbox>
+               
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Button">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">
+                <button type="button" name="button" mat-raised-button color="primary" 
+                (click)="showEditForm(coffeebean)" [disabled]="toggleForm"> Edit </button>
+                <button type="button" name="button" mat-raised-button color="accent"
+                (click)="deleteCoffeeBean(coffeebean._id)" [disabled]="toggleForm"> Delete </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef= "let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div> -->

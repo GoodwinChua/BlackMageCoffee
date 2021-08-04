@@ -1,0 +1,15 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel *ngFor = "let coffeebean of coffeebeanList">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{coffeebean.itemName}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{coffeebean.itemQuantity}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    {{coffeebean.itemBought}}
+
+  </mat-expansion-panel>
+</mat-accordion>

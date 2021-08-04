@@ -1,0 +1,38 @@
+<mat-table class="mat-elevation-z8" [dataSource]="coffeebeanDataSource">
+    <ng-container matColumnDef="Origin">
+        <mat-header-cell *matHeaderCellDef>Origin</mat-header-cell>
+        <mat-cell *matCellDef="let coffeebean">{{coffeebean.itemName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let coffeebean">{{coffeebean.itemQuantity}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Bought">
+            <mat-header-cell *matHeaderCellDef>Bought</mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">
+                <mat-checkbox [checked]="coffeebean.itemBought" > </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+    <ng-container matColumnDef="Button">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let coffeebean">
+                <button type="button" name="button" mat-button color="primary" 
+                > Edit </button> 
+                <button type="button" name="button" mat-button color="warning" (click)="deleteCoffeeBean(coffeebean._id)"
+                > Delete </button>
+            </mat-cell>
+        </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+
+<!-- (click)="updateItemBought(coffeebean)" -->
+
+<!-- (click)= "showEditForm(coffeebean)" [disabled]="toggleForm"
+
+(click)="deleteCoffeeBean(coffeebean._id)" [disabled]="toggleForm" -->

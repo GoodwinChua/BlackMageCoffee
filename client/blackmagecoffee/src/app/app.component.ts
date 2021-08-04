@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CoffeeBean } from './coffeebean';
 
 @Component({
   selector: 'app-root',

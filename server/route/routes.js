@@ -31,7 +31,7 @@ router.post('/coffeebean', (req, res, next) => {
             res.json(err);
         }
         else {
-            res.json({ msg: 'Item has been added to db' });
+            res.json({ msg: 'Item has been added to db', _id : item._id });
         }
     });
 });
